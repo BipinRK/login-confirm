@@ -20,12 +20,11 @@ if (!empty($_POST)) {
             $stmt->bindValue(':email', $email, PDO::PARAM_STR);
             $stmt->execute();
 			$member = $stmt->fetch(PDO::FETCH_ASSOC);
-//  ここにパスワードのチェック処理を完成させる
-//  		if( xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ) {
+				
+			if( password_verify($password, $member['password']) ) {
 				// ログイン成功
+				session_regenerate_id(true); 
 
-//  ここにセッションハイジャック対策を追加
-//
 
 				$_SESSION['id'] = $member['id'];
 				$_SESSION['time'] = time();
